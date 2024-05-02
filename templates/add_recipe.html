@@ -1,0 +1,64 @@
+{% extends "basic.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Add a New Recipe</h2>
+        <form method="POST" enctype="multipart/form-data">  <!-- Enable file uploads -->
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.recipe_name.label }}:
+                {{ form.recipe_name(class_="form-control") }}
+                {% if form.recipe_name.errors %}  <!-- Display validation errors -->
+                    <div class="text-danger">
+                        {{ form.recipe_name.errors[0] }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.title.label }}:
+                {{ form.title(class_="form-control") }}
+                {% if form.title.errors %}
+                    <div class="text-danger">
+                        {{ form.title.errors[0] }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.description.label }}:
+                {{ form.description(class_="form-control") }}
+                {% if form.description.errors %}
+                    <div class="text-danger">
+                        {{ form.description.errors[0] }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.category.label }}:
+                {{ form.category(class_="form-control") }}
+                {% if form.category.errors %}
+                    <div class="text-danger">
+                        {{ form.category.errors[0] }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.image.label }}:
+                {{ form.image(class_="form-control-file") }}  <!-- File input -->
+                {% if form.image.errors %}
+                    <div class="text-danger">
+                        {{ form.image.errors[0] }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group text-center">
+                {{ form.submit(class_="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

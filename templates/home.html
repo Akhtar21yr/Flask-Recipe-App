@@ -1,0 +1,40 @@
+{% extends "basic.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Welcome to RecipeApp</h1>
+        <p>Here are some of the latest recipes, separated by category:</p>
+
+        {% for category, recipes in recipes_by_category.items() %}
+        
+            <h2>{{ category }}</h2>  <!-- Display the category name -->
+            <div class="row">
+                {% for recipe in recipes %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ recipe.recipe_name }}</h3>
+                                <p class="card-text">{{ recipe.title }}</p>
+                                <div class="text-center">
+                                    {% if recipe.image %}
+                                        <img src="{{ url_for('static', filename='uploads/' + recipe.image) }}" alt="{{ recipe.recipe_name }}" class="img-fluid" style="max-height: 200px;"/>
+                                    {% else %}
+                                        <img src="{{ url_for('static', filename='uploads/default_recipe.jpg') }}" alt="Default recipe image" class="img-fluid" style="max-height: 200px;"/>
+                                    {% endif %}
+                                </div>
+                                <p class="card-text"><small class="text-muted">Category: {{ recipe.category }}</small></p>
+                                <p class="card-text"><small class="text-muted">Posted by: {{ recipe.posted_by.fullname }}</small></p>
+                                <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}" class="btn btn-info">View Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('add_recipe') }}" class="btn btn-primary">Add a New Recipe</a>
+        </div>
+    </div>
+
+{% endblock %}
